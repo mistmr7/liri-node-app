@@ -18,8 +18,9 @@ let arg = process.argv[3]
 
 
 //function used to call the twitter api
+//still waiting for api and secret, will update code when this is sent to me
 let runTwitter = (response) => {
-    request
+    client.get()
 }
 
 // function used to call the spotify api
@@ -27,7 +28,8 @@ let runSpotify = (arg) => {
     // search spotify's api by track, querying the argument from the command line and allowing 20 responses.
     spotify.search({ type: 'track', query: arg, limit: 20 }, function(err, response) {
         if (err) {
-            console.log(err);
+            console.log(err)
+            runSpotify('The Sign')
         }
         console.log('')
         
@@ -72,6 +74,7 @@ let runMovie = (response) => {
     })
 }
 
+// Search the random text file
 let runWhatItSays = (response) => {
     fs.readFile('random.txt', 'utf8', (err, response) =>{
         if (err) console.log(err)
@@ -88,14 +91,15 @@ let runWhatItSays = (response) => {
 }
 
 let functionFinder = function(api, arg) {
-if (api === 'my-tweets') {
-    runTwitter()
-} else if (api === 'spotify-this-song') {
-    runSpotify(arg)
-} else if (api === 'movie-this') {
-    runMovie()
-} else if (api === 'do-what-it-says') {
-    runWhatItSays()
+    if (api === 'my-tweets') {
+        runTwitter()
+    } else if (api === 'spotify-this-song') {
+        runSpotify(arg)
+    } else if (api === 'movie-this') {
+        runMovie()
+    } else if (api === 'do-what-it-says') {
+        runWhatItSays()
+    }
 }
-}
+
 functionFinder(api, arg)
